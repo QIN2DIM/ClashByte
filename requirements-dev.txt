@@ -1,0 +1,4 @@
+loguru>=0.7.0
+httpx>=0.24.1
+black
+pytest
