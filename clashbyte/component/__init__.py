@@ -3,7 +3,7 @@
 # Author     : QIN2DIM
 # Github     : https://github.com/QIN2DIM
 # Description:
+from .convertor import Toolkit
 
-
-if __name__ == "__main__":
-    pass
+kit = Toolkit
+__all__ = ["kit"]

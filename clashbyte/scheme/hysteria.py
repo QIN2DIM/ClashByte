@@ -7,13 +7,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Literal
-from urllib.parse import urlparse
+from urllib.parse import ParseResult
 
+from clashbyte.scheme._scheme import Scheme
 from clashbyte.utils import from_dict_to_cls
 
 
 @dataclass
-class Hysteria:
+class Hysteria(Scheme):
     # hostname or IP address of the server to connect to (required)
     host: str
 
@@ -54,19 +55,18 @@ class Hysteria:
     remarks: str = ""
 
     @classmethod
-    def from_sharelink(cls, link: str) -> Hysteria | None:
+    def from_urlparser(cls, parser: ParseResult):
         """
         从节点分享链接反序列化节点对象
 
         https://hysteria.network/zh/docs/uri-scheme/
 
-        :param link: Hysteria URL Scheme
+        :param parser: Hysteria URL Scheme Parser
         :return:
         """
-        u = urlparse(link)
-        host, port = u.netloc.split(":")
-        data = {"host": host, "port": port, "remarks": u.fragment}
-        for e in u.query.split("&"):
+        host, port = parser.netloc.split(":")
+        data = {"host": host, "port": port, "remarks": parser.fragment}
+        for e in parser.query.split("&"):
             k, v = e.split("=")
             data[k] = v
         return from_dict_to_cls(cls, data)
