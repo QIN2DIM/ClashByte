@@ -1,0 +1,16 @@
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: fake-ip
+  nameserver:
+    - "https://dns.google/dns-query#PROXY"
+    - "https://security.cloudflare-dns.com/dns-query#PROXY"
+  proxy-server-nameserver:
+    - system
+  nameserver-policy:
+    "geosite:cn":
+      - system
+rules:
+  - GEOSITE,CN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

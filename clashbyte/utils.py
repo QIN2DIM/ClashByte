@@ -5,7 +5,7 @@
 # Description:
 from __future__ import annotations
 
-import os
+import inspect
 import sys
 from dataclasses import dataclass
 from os.path import dirname
@@ -13,8 +13,6 @@ from pathlib import Path
 from typing import Literal
 
 from loguru import logger
-
-__all__ = ["project", "init_log"]
 
 
 @dataclass
@@ -25,8 +23,14 @@ class Project:
 
     logs = root_point.joinpath("logs")
 
-    def __post_init__(self):
-        os.makedirs(self.database, exist_ok=True)
+
+def from_dict_to_cls(cls, data):
+    return cls(
+        **{
+            key: (data[key] if val.default == val.empty else data.get(key, val.default))
+            for key, val in inspect.signature(cls).parameters.items()
+        }
+    )
 
 
 def init_log(*, stdout_level: Literal["INFO", "DEBUG"] = "DEBUG", **sink_channel):
@@ -68,9 +72,3 @@ def init_log(*, stdout_level: Literal["INFO", "DEBUG"] = "DEBUG", **sink_channel
 
 
 project = Project()
-init_log(
-    stdout_level="INFO",
-    # error=project.logs.joinpath("error.log"),
-    # runtime=project.logs.joinpath("runtime.log"),
-    # serialize=project.logs.joinpath("serialize.log"),
-)

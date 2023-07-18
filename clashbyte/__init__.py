@@ -4,7 +4,7 @@
 # Github     : https://github.com/QIN2DIM
 # Description:
 from .apis import ClashMetaAPI
-from .toolbox import init_log, project
+from .utils import init_log, project
 
 __all__ = ["ClashMetaAPI", "init_log", "project"]
-__version__ = "0.0.5"
+__version__ = "0.1.0"
