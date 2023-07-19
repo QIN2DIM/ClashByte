@@ -28,31 +28,31 @@ class Hysteria(Scheme):
     downmbps: int
 
     # multiport skip (optional)
-    mport: str = ""
+    mport: str = None
 
     # protocol to use ("udp", "wechat-video", "faketcp") (optional, default: "udp")
     protocol: Literal["udp", "wechat-video", "faketcp"] = "udp"
 
     # authentication payload (string) (optional)
-    auth: str = ""
+    auth: str = None
 
     # SNI for TLS (optional)
-    peer: str = ""
+    peer: str = None
 
     # insecure: ignore certificate errors (optional)
-    insecure: str = ""
+    insecure: bool = False
 
     # QUIC ALPN (optional)
     alpn: str = "h3"
 
     # Obfuscation mode (optional, empty or "xplus")
-    obfs: Literal["", "xplus"] = ""
+    obfs: Literal["", "xplus"] = None
 
     # Obfuscation password (optional)
-    obfsParam: str = ""
+    obfsParam: str = None
 
     # remarks alias (optional)
-    remarks: str = ""
+    remarks: str = None
 
     @classmethod
     def from_urlparser(cls, parser: ParseResult):
@@ -65,7 +65,7 @@ class Hysteria(Scheme):
         :return:
         """
         host, port = parser.netloc.split(":")
-        data = {"host": host, "port": port, "remarks": parser.fragment}
+        data = {"host": host, "port": int(port), "remarks": parser.fragment}
         for e in parser.query.split("&"):
             k, v = e.split("=")
             data[k] = v
@@ -104,4 +104,5 @@ class Hysteria(Scheme):
         }
         if kwargs:
             node.update(**kwargs)
+        node = {k: v for k, v in node.items() if v is not None}
         return node

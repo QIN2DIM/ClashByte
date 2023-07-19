@@ -9,11 +9,11 @@ from pathlib import Path
 from typing import Dict, Any
 from urllib.parse import ParseResult
 
+path_clash_config = Path(__file__).parent.joinpath("_default.yaml")
+
 
 @dataclass
 class Scheme(ABC):
-    path_clash_config = Path("_default.yaml")
-
     @classmethod
     @abstractmethod
     def from_urlparser(cls, parser: ParseResult):

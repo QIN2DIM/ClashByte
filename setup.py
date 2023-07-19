@@ -17,7 +17,7 @@ setup(
     license="MIT",
     url="https://github.com/QIN2DIM/ClashByte",
     packages=find_packages(include=["clashbyte", "clashbyte.*", "LICENSE"], exclude=["tests"]),
-    install_requires=["loguru>=0.7.0", "httpx>=0.24.1"],
+    install_requires=["loguru>=0.7.0", "httpx>=0.24.1", "PyYAML>=6.0.1"],
     extras_require={"dev": ["nox", "pytest"], "test": ["pytest", "black"]},
     python_requires=">=3.8",
     classifiers=[

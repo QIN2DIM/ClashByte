@@ -3,8 +3,8 @@
 # Author     : QIN2DIM
 # Github     : https://github.com/QIN2DIM
 # Description:
-from ._scheme import Scheme
+from ._scheme import Scheme, path_clash_config
 from .hysteria import Hysteria
 from .tuic import Tuic
 
-__all__ = ["Hysteria", "Tuic", "Scheme"]
+__all__ = ["Hysteria", "Tuic", "Scheme", "path_clash_config"]
