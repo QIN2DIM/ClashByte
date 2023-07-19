@@ -1,4 +1,5 @@
 loguru>=0.7.0
 httpx>=0.24.1
-black
-pytest
+setuptools>=67.8.0
+pywebio>=1.8.2
+PyYAML>=6.0.1

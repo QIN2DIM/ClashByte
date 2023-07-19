@@ -21,17 +21,13 @@ class Clash:
 
 
 @dataclass
-class ClashMeta:
+class ClashMetaAPI:
     """https://wiki.metacubex.one/api/"""
 
-
-@dataclass
-class ClashMetaAPI:
     secret: str = ""
     controller_url: str = ""
 
     _client = None
-    _core = None
 
     def __post_init__(self):
         if not self.controller_url:
@@ -48,7 +44,6 @@ class ClashMetaAPI:
             )
             del headers["Authorization"]
         self._client: httpx.Client = httpx.Client(base_url=self.controller_url, headers=headers)
-        self._core: ClashMeta = ClashMeta()
 
     @property
     def is_alive(self):
