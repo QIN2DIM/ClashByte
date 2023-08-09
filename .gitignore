@@ -161,3 +161,4 @@ cython_debug/
 tests/
 clashbyte/database
 clashbyte/logs
+examples/dns_answers
